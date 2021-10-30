@@ -1,30 +1,38 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
-function Timer() {
-  const [hours, setHours] = useState(0);
-  const [minutes, setMinutes] = useState(0);
+function Timer(props) {
   const [seconds, setSeconds] = useState(0);
+  const [timerOn, setTimerOn] = useState(false);
 
-  const handleStart = () => {};
-  const handleStop = () => {};
+  useEffect(() => {
+    let intervalCounter = null;
+    if (timerOn) {
+      if (seconds > 0) {
+        intervalCounter = setInterval(() => {
+          setSeconds((prevTime) => prevTime - 1);
+          console.log(seconds);
+        }, 1000);
+      }
+    } else {
+      clearInterval(intervalCounter);
+    }
+    return () => clearInterval(intervalCounter);
+  }, [timerOn]);
+
   return (
     <div>
       <div className="flex w-80 justify-between m-10 border border-white p-5 rounded-lg">
         <p>Change hours</p>
         <button
           onClick={() => {
-            setHours(hours + 1);
+            setSeconds(seconds + 3600);
           }}
         >
           +
         </button>
         <button
           onClick={() => {
-            if (hours > 0) {
-              setHours(hours - 1);
-            } else {
-              alert("Time cannot be negative");
-            }
+            setSeconds(seconds - 3600);
           }}
         >
           -
@@ -35,18 +43,14 @@ function Timer() {
         <p>Change minutes</p>
         <button
           onClick={() => {
-            setMinutes(minutes + 1);
+            setSeconds(seconds + 60);
           }}
         >
           +
         </button>
         <button
           onClick={() => {
-            if (minutes > 0) {
-              setMinutes(minutes - 1);
-            } else {
-              alert("Time cannot be negative");
-            }
+            setSeconds(seconds - 60);
           }}
         >
           -
@@ -66,9 +70,6 @@ function Timer() {
           onClick={() => {
             if (seconds > 0) {
               setSeconds(seconds - 1);
-            } else if (seconds === 0) {
-              setSeconds(59);
-              setMinutes(minutes - 1);
             } else {
               alert("Time cannot be negative");
             }
@@ -78,14 +79,27 @@ function Timer() {
         </button>
       </div>
       <p className="flex w-80 justify-between m-10 border border-white p-5 rounded-lg">
-        {hours / 10 === 0 ? "0" : null}
-        {hours}:{minutes / 10 === 0 ? "0" : null}
-        {minutes}:{seconds / 10 === 0 ? "0" : null}
-        {seconds}
+        {Math.floor(seconds / 3600 / 10) === 0 ? 0 : null}
+        {Math.floor(seconds / 3600)}:
+        {Math.floor(seconds / 60 / 10) === 0 ? 0 : null}
+        {Math.floor(seconds / 60)}:{Math.floor(seconds / 10) === 0 ? 0 : null}
+        {seconds % 60}
       </p>
       <div className="flex w-80 justify-evenly m-10 border border-white p-5 rounded-lg">
-        <button onClick={handleStart}>Start</button>{" "}
-        <button onClick={handleStop}>Stop</button>
+        <button
+          onClick={() => {
+            setTimerOn(true);
+          }}
+        >
+          Start
+        </button>{" "}
+        <button
+          onClick={() => {
+            setTimerOn(false);
+          }}
+        >
+          Stop
+        </button>
       </div>
     </div>
   );
