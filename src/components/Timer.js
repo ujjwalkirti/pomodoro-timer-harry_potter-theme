@@ -16,9 +16,7 @@ function getSeconds(props) {
 }
 
 function Timer() {
-  const universalState = useContext(houseContext);
-
-  const [seconds, setSeconds] = useState(getSeconds(universalState.breakType));
+  const [seconds, setSeconds] = useState(25 * 60);
   const [timerOn, setTimerOn] = useState(false);
 
   useEffect(() => {
