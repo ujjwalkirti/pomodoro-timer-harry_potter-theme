@@ -2,6 +2,8 @@ import React from "react";
 import { ImMagicWand } from "react-icons/im";
 import { GiMagicBroom } from "react-icons/gi";
 import { AiOutlineCloseCircle } from "react-icons/ai";
+import { IoMdRemoveCircle } from "react-icons/io";
+import { MdRemoveDone } from "react-icons/md";
 import { useState } from "react";
 
 function AddTasks() {
@@ -68,9 +70,11 @@ function AddTasks() {
       <div className="flex flex-col px-3 ">
         {tasks.map((task) => {
           return (
-            <div className="flex">
-              <p className="mr-2">{tasks.indexOf(task)+1}.</p>
+            <div className="flex bg-white bg-opacity-30 m-2 p-2 rounded-lg shadow-lg">
+              <p className="mr-2">{tasks.indexOf(task) + 1}.</p>
               <p>{task}</p>
+              <IoMdRemoveCircle />
+              <MdRemoveDone />
             </div>
           );
         })}
