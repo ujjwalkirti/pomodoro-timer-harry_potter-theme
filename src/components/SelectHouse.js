@@ -38,14 +38,14 @@ function SelectHouse() {
   }, [selectHouse.house]);
   return (
     <div>
-      <p>Select your house:</p>
-      <div className="w-2/3 mx-auto mt-4">
+      <p className="text-center text-4xl mt-3">Select your house:</p>
+      <div className="w-11/12 mx-auto mt-4">
         {houseThemes.map((houseTheme) => {
           return (
             <button
-              className={`bg-gradient-to-br shadow-lg from-${houseTheme.primaryColor} to-${houseTheme.secondaryColor} h-80 p-10 rounded-lg text-3xl font-semibold m-3`}
+              className={`bg-gradient-to-br shadow-lg from-${houseTheme.primaryColor} to-${houseTheme.secondaryColor} h-80 py-10 px-1 rounded-lg text-3xl font-semibold m-3 w-2/5`}
               onClick={() => {
-                selectHouse.setHouse("gryffindor");
+                selectHouse.setHouse(houseTheme.name.toLowerCase());
               }}
             >
               {houseTheme.name}

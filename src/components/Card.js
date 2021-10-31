@@ -1,14 +1,35 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { houseContext } from "../services/context/houseContext";
 import Timer from "./Timer";
 
 const typeOfBreaks = ["short", "long"];
 
 function Card() {
   const [breakType, setBreakType] = useState("");
+
+  const houseColors = useContext(houseContext);
+  useEffect(() => {
+    houseColors.setBreakType(breakType);
+  }, [breakType]);
+
   return (
-    <div className="">
-      <div className="flex w-60 mx-auto justify-evenly mt-3">
-        <button>Pomodoro</button>
+    <div className=" bg-white bg-opacity-30 p-5 m-5 rounded-lg">
+      <div
+        className={`${() =>
+          breakType === ""
+            ? "bg-white bg-opacity-40 text-semibold"
+            : null} flex w-full mx-auto justify-evenly mt-3`}
+      >
+        <button
+          className={`${
+            breakType === "" ? "bg-${houseColors.backGround}" : null
+          } bg-opacity-30`}
+          onClick={() => {
+            setBreakType("");
+          }}
+        >
+          Pomodoro
+        </button>
         <button
           onClick={() => {
             setBreakType(typeOfBreaks[0]);
@@ -24,20 +45,7 @@ function Card() {
           Long Break
         </button>
       </div>
-      {breakType !== "" ? (
-        <div>
-          <p>Break Over? </p>
-          <button
-            className="border border-white p-2 rounded-lg m-2"
-            onClick={() => {
-              setBreakType("");
-            }}
-          >
-            Go back
-          </button>
-        </div>
-      ) : null}
-      <Timer breakType={breakType} />
+      <Timer />
     </div>
   );
 }

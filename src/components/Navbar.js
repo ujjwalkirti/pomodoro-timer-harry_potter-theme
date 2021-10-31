@@ -1,11 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import { BsLightningCharge } from "react-icons/bs";
 import { HiUserCircle } from "react-icons/hi";
 import { IoMdSettings } from "react-icons/io";
+import { houseContext } from "../services/context/houseContext";
 
 function Navbar() {
+  const context = useContext(houseContext)
   return (
-    <div className="w-full h-14 border-b border-gray-200 flex items-center justify-between mr-2">
+    <div className={`w-full h-14 border-${context.backGround} border-b flex items-center justify-between mr-2`}>
       <p className="flex text-white font-bold text-xl items-center w-60 ml-4">
         <BsLightningCharge className="mr-2" /> WizardingPomo
       </p>

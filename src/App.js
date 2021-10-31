@@ -4,6 +4,7 @@ import SelectHouse from "./components/SelectHouse";
 import "./App.css";
 import { houseContext } from "./services/context/houseContext";
 import Navbar from "./components/Navbar";
+import AddTasks from "./components/AddTasks";
 
 function App() {
   const [houseSelected, setHouseSelected] = useState(false);
@@ -14,23 +15,27 @@ function App() {
     if (selectHouse.house !== "") {
       setHouseSelected(true);
       setBgColor(selectHouse.backGround);
+      console.log(selectHouse.backGround);
     }
-  }, [selectHouse.house]);
+  }, [selectHouse.house, selectHouse.backGround]);
 
   return (
     <div
       className={`App bg-${
         bgColor === "" ? "indigo-500" : bgColor
-      } h-auto special_width mx-auto text-white`}
+      } h-auto mx-auto text-white`}
     >
-      <Navbar />
-      {houseSelected ? (
-        <div>
-          <Card />
-        </div>
-      ) : (
-        <SelectHouse />
-      )}
+      <div className="special_width mx-auto">
+        <Navbar />
+        {houseSelected ? (
+          <div>
+            <Card />
+            <AddTasks/>
+          </div>
+        ) : (
+          <SelectHouse />
+        )}
+      </div>
     </div>
   );
 }
