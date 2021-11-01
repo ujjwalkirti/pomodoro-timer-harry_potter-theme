@@ -1,7 +1,8 @@
-import { GoogleAuthProvider, signInWithPopup } from "@firebase/auth";
+import { GoogleAuthProvider, signInWithPopup, signOut } from "@firebase/auth";
 import React, { useContext } from "react";
 import { BsLightningCharge } from "react-icons/bs";
 import { HiUserCircle } from "react-icons/hi";
+import { GoSignOut } from "react-icons/go";
 import { IoMdSettings } from "react-icons/io";
 import { houseContext } from "../services/context/houseContext";
 import { auth, provider } from "../services/Firebase/firebase";
@@ -48,9 +49,28 @@ function Navbar() {
             <HiUserCircle className="mr-1" /> Login
           </p>
         ) : (
-          <p className="mr-2 cursor-pointer bg-white bg-opacity-40 px-2 py-1 rounded-lg flex items-center">
-            {context.user.email}
-          </p>
+          <div className="flex">
+            <p
+              onClick={() => {
+                signOut(auth)
+                  .then(() => {
+                    // Sign-out successful.
+                    context.setUser(null);
+                  })
+                  .catch((error) => {
+                    // An error happened.
+                    alert(error);
+                  });
+              }}
+              className="mr-2 cursor-pointer bg-white bg-opacity-40 px-2 py-1 rounded-lg flex items-center"
+            >
+              <GoSignOut />
+            </p>
+            <img
+              className="h-10 w-10 rounded-full"
+              src={context.user.photoURL}
+            />
+          </div>
         )}
       </div>
     </div>

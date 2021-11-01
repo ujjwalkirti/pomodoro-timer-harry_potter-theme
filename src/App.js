@@ -16,6 +16,7 @@ function App() {
     if (selectHouse.user === null) {
       auth.onAuthStateChanged((currentUser) => {
         selectHouse.setUser(currentUser);
+        // console.log(currentUser);
       });
     }
     if (selectHouse.house !== "") {
