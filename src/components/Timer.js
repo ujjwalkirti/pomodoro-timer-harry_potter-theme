@@ -4,7 +4,6 @@ import { GiPauseButton } from "react-icons/gi";
 import { BsPlusCircleFill } from "react-icons/bs";
 import { AiFillMinusCircle } from "react-icons/ai";
 
-
 function Timer() {
   const [seconds, setSeconds] = useState(25 * 60);
   const [timerOn, setTimerOn] = useState(false);
@@ -14,7 +13,11 @@ function Timer() {
     if (timerOn) {
       if (seconds > 0) {
         intervalCounter = setInterval(() => {
-          setSeconds((prevTime) => prevTime - 1);
+          if (seconds > 0) {
+            setSeconds((prevTime) => prevTime - 1);
+          } else {
+            setTimerOn(false);
+          }
           console.log(seconds);
         }, 1000);
       }

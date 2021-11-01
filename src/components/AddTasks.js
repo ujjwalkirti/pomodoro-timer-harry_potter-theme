@@ -10,9 +10,7 @@ function AddTasks() {
   const [wantsToAddTask, setWantsToAddTask] = useState(false);
   const [task, setTask] = useState({});
   const [tasks, setTasks] = useState([
-    { name: "ko", striked: false },
-    { name: "dy/dx", striked: false },
-    { name: "lolwa", striked: true },
+    { name: "Make this Pomodoro timer", striked: false },
   ]);
 
   return (
