@@ -8,8 +8,12 @@ import { useState } from "react";
 
 function AddTasks() {
   const [wantsToAddTask, setWantsToAddTask] = useState(false);
-  const [task, setTask] = useState("");
-  const [tasks, setTasks] = useState([]);
+  const [task, setTask] = useState({});
+  const [tasks, setTasks] = useState([
+    { name: "ko", striked: false },
+    { name: "dy/dx", striked: false },
+    { name: "lolwa", striked: true },
+  ]);
 
   return (
     <div className="flex flex-col font-semibold text-lg">
@@ -47,7 +51,8 @@ function AddTasks() {
             <input
               type="text"
               onChange={(event) => {
-                setTask(event.target.value);
+                let object = { name: event.target.value, striked: false };
+                setTask(object);
               }}
               placeholder="What's your task?"
               className="w-2/3 mx-auto mt-3 text-black px-2 py-1 rounded-xl"
@@ -67,14 +72,40 @@ function AddTasks() {
           </form>
         </div>
       )}
-      <div className="flex flex-col px-3 ">
+      <div className="flex flex-col px-3 mb-5 ">
         {tasks.map((task) => {
           return (
-            <div className="flex bg-white bg-opacity-30 m-2 p-2 rounded-lg shadow-lg">
-              <p className="mr-2">{tasks.indexOf(task) + 1}.</p>
-              <p>{task}</p>
-              <IoMdRemoveCircle />
-              <MdRemoveDone />
+            <div className="flex justify-between bg-white bg-opacity-30 m-2 p-2 rounded-lg shadow-lg">
+              <div className="flex items-center">
+                <p className="mr-2">{tasks.indexOf(task) + 1}.</p>
+                <p className={task.striked === true ? "line-through" : null}>
+                  {task.name}
+                </p>
+              </div>
+              <div className="flex items-center w-40 justify-evenly text-xl">
+                <IoMdRemoveCircle
+                  className="cursor-pointer"
+                  onClick={(event) => {
+                    event.preventDefault();
+                    let localArray = tasks;
+                    localArray = localArray.filter((local) => local !== task);
+                    setTasks(localArray);
+                  }}
+                />
+                <MdRemoveDone
+                  className="cursor-pointer"
+                  onClick={(event) => {
+                    event.preventDefault();
+                    let localArray = tasks;
+                    if (localArray[localArray.indexOf(task)].striked) {
+                      localArray[localArray.indexOf(task)].striked = false;
+                    } else {
+                      localArray[localArray.indexOf(task)].striked = true;
+                    }
+                    setTasks(localArray);
+                  }}
+                />
+              </div>
             </div>
           );
         })}

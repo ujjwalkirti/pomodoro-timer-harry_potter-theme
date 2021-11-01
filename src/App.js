@@ -5,6 +5,7 @@ import "./App.css";
 import { houseContext } from "./services/context/houseContext";
 import Navbar from "./components/Navbar";
 import AddTasks from "./components/AddTasks";
+import { auth } from "./services/Firebase/firebase";
 
 function App() {
   const [houseSelected, setHouseSelected] = useState(false);
@@ -12,6 +13,11 @@ function App() {
   const selectHouse = useContext(houseContext);
 
   useEffect(() => {
+    if (selectHouse.user === null) {
+      auth.onAuthStateChanged((currentUser) => {
+        selectHouse.setUser(currentUser);
+      });
+    }
     if (selectHouse.house !== "") {
       setHouseSelected(true);
       setBgColor(selectHouse.backGround);
@@ -30,7 +36,7 @@ function App() {
         {houseSelected ? (
           <div>
             <Card />
-            <AddTasks/>
+            <AddTasks />
           </div>
         ) : (
           <SelectHouse />
