@@ -32,15 +32,12 @@ function Navbar() {
   };
   return (
     <div
-      className={`w-full h-14 border-${context.backGround} border-b flex items-center justify-between mr-2`}
+      className={`w-full h-14 border-white border-opacity-80 border-b flex items-center justify-between mr-2`}
     >
       <p className="flex text-white font-bold text-xl items-center w-60 ml-4">
         <BsLightningCharge className="mr-2" /> WizardingPomo
       </p>
       <div className="flex">
-        <p className="mr-3 cursor-pointer bg-white bg-opacity-40 px-2 py-1 rounded-lg flex items-center">
-          <IoMdSettings className="mr-1" /> Setting
-        </p>
         {context.user === null ? (
           <p
             className="mr-2 cursor-pointer bg-white bg-opacity-40 px-2 py-1 rounded-lg flex items-center"
@@ -50,6 +47,10 @@ function Navbar() {
           </p>
         ) : (
           <div className="flex">
+            <img
+              className="h-10 w-10 rounded-full mx-4 cursor-pointer"
+              src={context.user.photoURL}
+            />
             <p
               onClick={() => {
                 signOut(auth)
@@ -66,10 +67,6 @@ function Navbar() {
             >
               <GoSignOut />
             </p>
-            <img
-              className="h-10 w-10 rounded-full"
-              src={context.user.photoURL}
-            />
           </div>
         )}
       </div>

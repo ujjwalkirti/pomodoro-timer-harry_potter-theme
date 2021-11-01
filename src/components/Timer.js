@@ -2,18 +2,8 @@ import React, { useEffect, useState } from "react";
 import { BsPlayCircle } from "react-icons/bs";
 import { GiPauseButton } from "react-icons/gi";
 import { BsPlusCircleFill } from "react-icons/bs";
-import { useContext } from "react/cjs/react.development";
-import { houseContext } from "../services/context/houseContext";
+import { AiFillMinusCircle } from "react-icons/ai";
 
-function getSeconds(props) {
-  if (props === "short") {
-    return 5 * 60;
-  } else if (props === "long") {
-    return 15 * 60;
-  } else {
-    return 25 * 60;
-  }
-}
 
 function Timer() {
   const [seconds, setSeconds] = useState(25 * 60);
@@ -66,7 +56,7 @@ function Timer() {
           </button>
         )}
       </div>
-      <div className="flex justify-between m-1 border border-white p-5 rounded-lg w-full">
+      <div className="flex justify-between m-1 border border-white  px-5 py-3 rounded-lg w-full">
         <p className="w-1/3">Change hours</p>
         <button
           onClick={() => {
@@ -77,14 +67,18 @@ function Timer() {
         </button>
         <button
           onClick={() => {
-            setSeconds(seconds - 3600);
+            if (seconds - 3600 < 0) {
+              alert("Time cannot be negative");
+            } else {
+              setSeconds(seconds - 3600);
+            }
           }}
         >
-          -
+          <AiFillMinusCircle />
         </button>
       </div>
 
-      <div className="flex w-full justify-between m-1 border border-white p-5 rounded-lg ">
+      <div className="flex w-full justify-between m-1 border border-white  px-5 py-3 rounded-lg ">
         <p className="w-1/3">Change minutes</p>
         <button
           onClick={() => {
@@ -95,14 +89,18 @@ function Timer() {
         </button>
         <button
           onClick={() => {
-            setSeconds(seconds - 60);
+            if (seconds - 60 >= 0) {
+              setSeconds(seconds - 60);
+            } else {
+              alert("Time cannot be negative");
+            }
           }}
         >
-          -
+          <AiFillMinusCircle />
         </button>
       </div>
 
-      <div className="flex w-full justify-between m-1 border border-white p-5 rounded-lg">
+      <div className="flex w-full justify-between m-1 border border-white px-5 py-3 rounded-lg">
         <p className="w-1/3">Change seconds</p>
         <button
           onClick={() => {
@@ -120,7 +118,7 @@ function Timer() {
             }
           }}
         >
-          -
+          <AiFillMinusCircle />
         </button>
       </div>
     </div>
