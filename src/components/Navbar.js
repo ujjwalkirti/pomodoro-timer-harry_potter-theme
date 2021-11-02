@@ -3,7 +3,6 @@ import React, { useContext } from "react";
 import { BsLightningCharge } from "react-icons/bs";
 import { HiUserCircle } from "react-icons/hi";
 import { GoSignOut } from "react-icons/go";
-import { IoMdSettings } from "react-icons/io";
 import { houseContext } from "../services/context/houseContext";
 import { auth, provider } from "../services/Firebase/firebase";
 

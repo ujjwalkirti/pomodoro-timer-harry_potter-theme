@@ -5,16 +5,39 @@ import "./App.css";
 import { houseContext } from "./services/context/houseContext";
 import Navbar from "./components/Navbar";
 import AddTasks from "./components/AddTasks";
-import { auth } from "./services/Firebase/firebase";
+import { auth, provider } from "./services/Firebase/firebase";
 import ReactPlayer from "react-player/lazy";
 import { houses } from "./data/houses";
 import { FaArrowCircleDown } from "react-icons/fa";
+import { GoogleAuthProvider, signInWithPopup } from "@firebase/auth";
 
 function App() {
   const [houseSelected, setHouseSelected] = useState(false);
   const [bgColor, setBgColor] = useState("");
   const [videoURL, setVideoURL] = useState("");
   const selectHouse = useContext(houseContext);
+
+  const handleLogin = () => {
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        // This gives you a Google Access Token. You can use it to access the Google API.
+        const credential = GoogleAuthProvider.credentialFromResult(result);
+        const token = credential.accessToken;
+        // The signed-in user info.
+        selectHouse.setUser(result.user);
+      })
+      .catch((error) => {
+        // Handle Errors here.
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        alert(errorMessage);
+        // The email of the user's account used.
+        const email = error.email;
+        // The AuthCredential type that was used.
+        const credential = GoogleAuthProvider.credentialFromError(error);
+        // ...
+      });
+  };
 
   useEffect(() => {
     if (selectHouse.user === null) {
@@ -61,12 +84,22 @@ function App() {
                   Want some common room ambience?{" "}
                   <FaArrowCircleDown className="animate-bounce" />
                 </p>
-                <ReactPlayer
-                  url={videoURL}
-                  height={300}
-                  width={500}
-                  controls={true}
-                />
+                {selectHouse.user === null && (
+                  <p
+                    className="my-5 border rounded-lg shadow-lg px-3 py-1 cursor-pointer text-xl font-semibold"
+                    onClick={handleLogin}
+                  >
+                    Please log in
+                  </p>
+                )}
+                {selectHouse.user !== null && (
+                  <ReactPlayer
+                    url={videoURL}
+                    height={300}
+                    width={500}
+                    controls={true}
+                  />
+                )}
               </div>
             )}
           </div>
