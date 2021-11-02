@@ -5,7 +5,7 @@ import { BsPlusCircleFill } from "react-icons/bs";
 import { AiFillMinusCircle } from "react-icons/ai";
 
 function Timer() {
-  const [seconds, setSeconds] = useState(3);
+  const [seconds, setSeconds] = useState(25 * 60);
   const [minutes, setMinutes] = useState(Math.floor(seconds / 60));
   const [hours, setHours] = useState(Math.floor(minutes / 60));
   const [timerOn, setTimerOn] = useState(false);

@@ -10,6 +10,8 @@ import ReactPlayer from "react-player/lazy";
 import { houses } from "./data/houses";
 import { FaArrowCircleDown } from "react-icons/fa";
 import { GoogleAuthProvider, signInWithPopup } from "@firebase/auth";
+import boy from "./data/theboywholived.gif";
+import map from "./data/map.gif";
 
 function App() {
   const [houseSelected, setHouseSelected] = useState(false);
@@ -66,7 +68,12 @@ function App() {
         bgColor === "" ? "indigo-500" : bgColor
       } h-auto mx-auto text-white`}
     >
-      <div className="special_width mx-auto flex flex-col">
+      <img
+        src={boy}
+        className="fixed top-0 left-3 z-0 h-60 w-60 saturate-150 backdrop-blur-lg"
+      />
+      <img src={map} className="fixed top-0 right-3 h-60 w-60"/>
+      <div className="special_width mx-auto flex flex-col z-10">
         <Navbar />
         {houseSelected ? (
           <div>
@@ -79,7 +86,7 @@ function App() {
               </div>
             </div>
             {selectHouse.house !== "" && (
-              <div className="mx-auto w-full flex flex-col items-center mt-1">
+              <div className="mx-auto w-full flex flex-col items-center my-1">
                 <p className="text-5xl my-4 font-semibold flex justify-evenly items-center w-full animate-pulse">
                   Want some common room ambience?{" "}
                   <FaArrowCircleDown className="animate-bounce" />
