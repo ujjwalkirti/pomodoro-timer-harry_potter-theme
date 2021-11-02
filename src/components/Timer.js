@@ -5,38 +5,63 @@ import { BsPlusCircleFill } from "react-icons/bs";
 import { AiFillMinusCircle } from "react-icons/ai";
 
 function Timer() {
-  const [seconds, setSeconds] = useState(25 * 60);
+  const [seconds, setSeconds] = useState(3);
+  const [minutes, setMinutes] = useState(Math.floor(seconds / 60));
+  const [hours, setHours] = useState(Math.floor(minutes / 60));
   const [timerOn, setTimerOn] = useState(false);
+
+  useEffect(() => {
+    setMinutes(Math.floor(seconds / 60));
+    setHours(Math.floor(minutes / 60));
+    if (seconds === 0) {
+      setTimerOn(false);
+    }
+  }, [seconds]);
 
   useEffect(() => {
     let intervalCounter = null;
     if (timerOn) {
       if (seconds > 0) {
         intervalCounter = setInterval(() => {
-          if (seconds > 0) {
-            setSeconds((prevTime) => prevTime - 1);
-          } else {
-            setTimerOn(false);
-          }
-          console.log(seconds);
+          setSeconds((prevTime) => {
+            if (prevTime > 0) {
+              return prevTime - 1;
+            } else {
+              clearInterval(intervalCounter);
+              return "Time for a break";
+            }
+          });
         }, 1000);
+      } else {
+        clearInterval(intervalCounter);
       }
-    } else if (seconds < 0) {
-      clearInterval(intervalCounter);
-    } else {
-      clearInterval(intervalCounter);
+      return () => clearInterval(intervalCounter);
     }
-    return () => clearInterval(intervalCounter);
   }, [timerOn]);
   return (
     <div className="flex flex-col">
-      <p className="font-bold text-8xl flex w-full justify-center m-1 p-5 rounded-lg text-center items-center">
-        {Math.floor(seconds / 3600 / 10) === 0 ? 0 : null}
-        {Math.floor(seconds / 3600)}:{seconds / 60 / 10 < 1 ? 0 : null}
-        {Math.floor((seconds - Math.floor(seconds / 3600) * 3600) / 60)}:
-        {Math.floor((seconds % 60) / 10) < 1 ? 0 : null}
-        {seconds % 60}
-      </p>
+      {seconds >= 0 ? (
+        <p className="font-bold text-8xl flex w-full justify-center m-1 p-5 rounded-lg text-center items-center">
+          {hours / 10 < 1 ? 0 : null}
+          {hours}:{(minutes % 60) / 10 < 1 ? 0 : null}
+          {minutes % 60}:{(seconds % 60) / 10 < 1 ? 0 : null}
+          {seconds % 60}
+        </p>
+      ) : (
+        <div className="flex flex-col">
+          <p className="font-bold text-4xl flex w-full justify-center m-1 p-5 rounded-lg text-center items-center">
+            {seconds}
+          </p>
+          <button
+            onClick={() => {
+              setSeconds(25 * 60);
+            }}
+            className="shadow-lg px-3 py-1 border w-40 mx-auto"
+          >
+            Reset timer
+          </button>
+        </div>
+      )}
       <div className="flex w-full justify-evenly m-1 p-5 rounded-lg">
         {!timerOn && (
           <button

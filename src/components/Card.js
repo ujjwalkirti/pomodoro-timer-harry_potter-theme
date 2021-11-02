@@ -19,32 +19,7 @@ function Card() {
           breakType === ""
             ? "bg-white bg-opacity-40 text-semibold"
             : null} flex w-full mx-auto justify-evenly mt-3`}
-      >
-        <button
-          className={`${
-            breakType === "" ? "bg-${houseColors.backGround}" : null
-          } bg-opacity-30`}
-          onClick={() => {
-            setBreakType("");
-          }}
-        >
-          Pomodoro
-        </button>
-        <button
-          onClick={() => {
-            setBreakType(typeOfBreaks[0]);
-          }}
-        >
-          Short Break
-        </button>
-        <button
-          onClick={() => {
-            setBreakType(typeOfBreaks[1]);
-          }}
-        >
-          Long Break
-        </button>
-      </div>
+      ></div>
       <Timer />
     </div>
   );

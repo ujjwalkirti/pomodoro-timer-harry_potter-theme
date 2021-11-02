@@ -47,10 +47,17 @@ function App() {
         <Navbar />
         {houseSelected ? (
           <div>
-            <Card />
+            <div className="flex">
+              <div className="w-1/2">
+                <Card />
+              </div>
+              <div className="w-1/2">
+                <AddTasks />
+              </div>
+            </div>
             {selectHouse.house !== "" && (
               <div className="mx-auto w-full flex flex-col items-center mt-1">
-                <p className="text-2xl my-4 font-semibold flex justify-evenly items-center w-full animate-pulse">
+                <p className="text-5xl my-4 font-semibold flex justify-evenly items-center w-full animate-pulse">
                   Want some common room ambience?{" "}
                   <FaArrowCircleDown className="animate-bounce" />
                 </p>
@@ -62,8 +69,6 @@ function App() {
                 />
               </div>
             )}
-
-            <AddTasks />
           </div>
         ) : (
           <SelectHouse />
