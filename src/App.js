@@ -9,7 +9,7 @@ import { auth, provider } from "./services/Firebase/firebase";
 import ReactPlayer from "react-player/lazy";
 import { houses } from "./data/houses";
 import { FaArrowCircleDown } from "react-icons/fa";
-import { GoogleAuthProvider, signInWithPopup } from "@firebase/auth";
+import { signInWithPopup } from "@firebase/auth";
 import boy from "./data/theboywholived.gif";
 import map from "./data/map.gif";
 
@@ -22,22 +22,13 @@ function App() {
   const handleLogin = () => {
     signInWithPopup(auth, provider)
       .then((result) => {
-        // This gives you a Google Access Token. You can use it to access the Google API.
-        const credential = GoogleAuthProvider.credentialFromResult(result);
-        const token = credential.accessToken;
         // The signed-in user info.
         selectHouse.setUser(result.user);
       })
       .catch((error) => {
         // Handle Errors here.
-        const errorCode = error.code;
         const errorMessage = error.message;
         alert(errorMessage);
-        // The email of the user's account used.
-        const email = error.email;
-        // The AuthCredential type that was used.
-        const credential = GoogleAuthProvider.credentialFromError(error);
-        // ...
       });
   };
 
@@ -68,15 +59,15 @@ function App() {
         bgColor === "" ? "indigo-500" : bgColor
       } h-auto mx-auto text-white`}
     >
-      <img
-        src={boy}
-        className="fixed top-0 left-3 z-0 h-60 w-60 saturate-150 backdrop-blur-lg"
-      />
-      <img src={map} className="fixed top-0 right-3 h-60 w-60"/>
       <div className="special_width mx-auto flex flex-col z-10">
         <Navbar />
         {houseSelected ? (
           <div>
+            <img
+              src={boy}
+              className="fixed top-0 left-3 z-0 h-60 w-60 saturate-150 backdrop-blur-lg"
+            />
+            <img src={map} className="fixed top-0 right-3 h-60 w-60" />
             <div className="flex">
               <div className="w-1/2">
                 <Card />
