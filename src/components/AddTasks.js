@@ -71,7 +71,7 @@ function AddTasks() {
         </div>
       )}
       <div className="flex flex-col px-3 mb-5 ">
-        {tasks.map((task) => {
+        {tasks.map((task, index) => {
           return (
             <div className="flex justify-between bg-white bg-opacity-30 m-2 p-2 rounded-lg shadow-lg">
               <div className="flex items-center">
@@ -85,7 +85,7 @@ function AddTasks() {
                   className="cursor-pointer"
                   onClick={(event) => {
                     event.preventDefault();
-                    let localArray = tasks;
+                    let localArray = [...tasks];
                     localArray = localArray.filter((local) => local !== task);
                     setTasks(localArray);
                   }}
@@ -94,12 +94,14 @@ function AddTasks() {
                   className="cursor-pointer"
                   onClick={(event) => {
                     event.preventDefault();
-                    let localArray = tasks;
-                    if (localArray[localArray.indexOf(task)].striked) {
-                      localArray[localArray.indexOf(task)].striked = false;
+                    let localArray = [...tasks];
+                    let localObject = { ...localArray[index] };
+                    if (task.striked) {
+                      localObject.striked = false;
                     } else {
-                      localArray[localArray.indexOf(task)].striked = true;
+                      localObject.striked = true;
                     }
+                    localArray[index] = localObject;
                     setTasks(localArray);
                   }}
                 />
