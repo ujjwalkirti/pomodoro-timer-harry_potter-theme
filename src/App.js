@@ -65,6 +65,9 @@ function App() {
       });
 
       console.log(selectHouse.backGround);
+    } else {
+      setHouseSelected(false);
+      setBgColor("indigo-500");
     }
   }, [selectHouse.house, selectHouse.backGround]);
 

@@ -1,11 +1,11 @@
-import {  signInWithPopup, signOut } from "@firebase/auth";
+import { signInWithPopup, signOut } from "@firebase/auth";
 import React, { useContext } from "react";
 import { BsLightningCharge } from "react-icons/bs";
 import { HiUserCircle } from "react-icons/hi";
 import { GoSignOut } from "react-icons/go";
 import { houseContext } from "../services/context/houseContext";
 import { auth, provider } from "../services/Firebase/firebase";
-
+import { IoChevronBackCircle } from "react-icons/io5";
 function Navbar() {
   const context = useContext(houseContext);
   const handleLogin = () => {
@@ -23,9 +23,22 @@ function Navbar() {
     <div
       className={`w-full h-14 border-white border-opacity-80 border-b flex items-center justify-between mr-2`}
     >
-      <p className="flex text-white font-bold text-xl items-center w-60 ml-4">
-        <BsLightningCharge className="mr-2" /> WizardingPomo
-      </p>
+      <div className="flex items-center ml-3">
+        {" "}
+        {context.house !== "" && (
+          <p
+            className="text-xl cursor-pointer"
+            onClick={() => {
+              context.setHouse("");
+            }}
+          >
+            <IoChevronBackCircle />
+          </p>
+        )}
+        <p className="flex text-white font-bold text-xl items-center w-60 ml-4">
+          <BsLightningCharge className="mr-2" /> WizardingPomo
+        </p>
+      </div>
       <div className="flex">
         {context.user === null ? (
           <p
