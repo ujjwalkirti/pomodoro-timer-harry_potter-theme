@@ -4,7 +4,7 @@ import {  GiPauseButton } from "react-icons/gi";
 import { BsPlusCircleFill } from "react-icons/bs";
 import { AiFillMinusCircle } from "react-icons/ai";
 
-import { useContext } from "react/cjs/react.development";
+import { useContext } from "react";
 import { houseContext } from "../services/context/houseContext";
 
 function Timer() {
