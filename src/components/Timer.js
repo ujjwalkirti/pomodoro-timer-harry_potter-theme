@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { BsPlayCircle } from "react-icons/bs";
-import { GiPauseButton } from "react-icons/gi";
+import {  GiPauseButton } from "react-icons/gi";
 import { BsPlusCircleFill } from "react-icons/bs";
 import { AiFillMinusCircle } from "react-icons/ai";
+
+import { useContext } from "react/cjs/react.development";
+import { houseContext } from "../services/context/houseContext";
 
 function Timer() {
   const [seconds, setSeconds] = useState(25 * 60);
@@ -10,11 +13,14 @@ function Timer() {
   const [hours, setHours] = useState(Math.floor(minutes / 60));
   const [timerOn, setTimerOn] = useState(false);
 
+  const context = useContext(houseContext);
+
   useEffect(() => {
     setMinutes(Math.floor(seconds / 60));
     setHours(Math.floor(minutes / 60));
     if (seconds === 0) {
       setTimerOn(false);
+      context.setsetCountDownCompleted(true);
     }
   }, [seconds]);
 

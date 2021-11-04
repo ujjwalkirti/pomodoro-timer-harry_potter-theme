@@ -4,7 +4,7 @@ import { houseContext } from "./houseContext";
 const HouseState = (props) => {
   const [house, setHouse] = useState("");
   const [backGround, setBackGround] = useState("");
-  const [breakType, setBreakType] = useState("");
+  const [countDownCompleted, setCountDownCompleted] = useState(false);
   const [user, setUser] = useState(null);
   return (
     <houseContext.Provider
@@ -13,8 +13,8 @@ const HouseState = (props) => {
         setHouse,
         backGround,
         setBackGround,
-        breakType,
-        setBreakType,
+        countDownCompleted,
+        setCountDownCompleted,
         user,
         setUser,
       }}

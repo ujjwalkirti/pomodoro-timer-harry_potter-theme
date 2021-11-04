@@ -8,15 +8,18 @@ import AddTasks from "./components/AddTasks";
 import { auth, provider } from "./services/Firebase/firebase";
 import ReactPlayer from "react-player/lazy";
 import { houses } from "./data/houses";
-import { FaArrowCircleDown } from "react-icons/fa";
+import { FaArrowCircleDown, FaWindowClose } from "react-icons/fa";
 import { signInWithPopup } from "@firebase/auth";
 import boy from "./data/theboywholived.gif";
 import map from "./data/map.gif";
+import { congratulations_gifs } from "./components/congratulatory_messages";
 
 function App() {
   const [houseSelected, setHouseSelected] = useState(false);
   const [bgColor, setBgColor] = useState("");
   const [videoURL, setVideoURL] = useState("");
+  const [showMessage, setShowMessage] = useState(true);
+
   const selectHouse = useContext(houseContext);
 
   const handleLogin = () => {
@@ -31,6 +34,18 @@ function App() {
         alert(errorMessage);
       });
   };
+
+  const randomNumberGenerator = (arr) => {
+    const index = Math.floor(Math.random() * arr.length);
+    console.log(arr[index]);
+    return arr[index];
+  };
+
+  useEffect(() => {
+    if (selectHouse.countDownCompleted) {
+      setShowMessage(true);
+    }
+  }, [selectHouse.countDownCompleted]);
 
   useEffect(() => {
     if (selectHouse.user === null) {
@@ -63,6 +78,25 @@ function App() {
         <Navbar />
         {houseSelected ? (
           <div>
+            {showMessage && (
+              <div className="fixed border bg-gray-700 bg-opacity-90 inset-x-96 inset-y-16 flex justify-center z-40 p-4">
+                <img
+                  src={randomNumberGenerator(congratulations_gifs)}
+                  alt="image"
+                  className="w-2/3"
+                />
+                <FaWindowClose
+                  className="absolute right-3 cursor-pointer"
+                  onClick={() => {
+                    setShowMessage(false);
+                  }}
+                />
+                <p className="font-bold text-3xl fixed bottom-0 text-center p-3 bg-black bg-opacity-90">
+                  Congratulations on successfully completeing a session! keep
+                  working!
+                </p>
+              </div>
+            )}
             <img
               src={boy}
               className="fixed top-0 left-3 z-0 h-60 w-60 saturate-150 backdrop-blur-lg"
