@@ -18,7 +18,7 @@ function App() {
   const [houseSelected, setHouseSelected] = useState(false);
   const [bgColor, setBgColor] = useState("");
   const [videoURL, setVideoURL] = useState("");
-  const [showMessage, setShowMessage] = useState(true);
+  const [showMessage, setShowMessage] = useState(false);
 
   const selectHouse = useContext(houseContext);
 
@@ -89,6 +89,7 @@ function App() {
                   className="absolute right-3 cursor-pointer"
                   onClick={() => {
                     setShowMessage(false);
+                    selectHouse.setCountDownCompleted(false);
                   }}
                 />
                 <p className="font-bold text-3xl fixed bottom-0 text-center p-3 bg-black bg-opacity-90">
